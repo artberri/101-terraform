@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "state" {
     acl    = "private"
 
     tags {
-        Name        = "Example Machine"
+        Name        = "Terraform State Store"
         Environment = "Production"
     }
 }
