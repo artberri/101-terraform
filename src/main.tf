@@ -1,3 +1,4 @@
+# AcmeCo admin key
 resource "aws_key_pair" "acme" {
     key_name   = "acme"
     public_key = "${file("../admin_ssh_key.pub")}"
@@ -29,28 +30,12 @@ resource "aws_elb" "acme" {
   }
 }
 
-resource "aws_instance" "acme1" {
-    ami                         = "ami-e1f2e185" // Ubuntu 16.04 LTS hvm:ebs-ssd
-    instance_type               = "t2.micro"
-    associate_public_ip_address = true
-    key_name                    = "acme"
-}
-
-resource "aws_elb_attachment" "acme1" {
-  elb      = "${aws_elb.acme.id}"
-  instance = "${aws_instance.acme1.id}"
-}
-
-resource "aws_instance" "acme2" {
-    ami                         = "ami-e1f2e185" // Ubuntu 16.04 LTS hvm:ebs-ssd
-    instance_type               = "t2.micro"
-    associate_public_ip_address = true
-    key_name                    = "acme"
-}
-
-resource "aws_elb_attachment" "acme2" {
-  elb      = "${aws_elb.acme.id}"
-  instance = "${aws_instance.acme2.id}"
+module "acme_instances" {
+  source  = "./modules/aws/instance"
+  servers = 2
+  elb_id  = "${aws_elb.acme.id}"
+  ami     = "${var.acme_instance_ami}"
+  type    = "${var.acme_instance_type}"
 }
 
 resource "aws_db_instance" "acme" {
@@ -58,7 +43,7 @@ resource "aws_db_instance" "acme" {
   storage_type         = "standard"
   engine               = "mysql"
   engine_version       = "5.7.17"
-  instance_class       = "db.t2.micro"
+  instance_class       = "${var.acme_db_type}"
   name                 = "acme"
   username             = "acme"
   password             = "12345678"
