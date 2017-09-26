@@ -4,7 +4,7 @@ resource "aws_instance" "main" {
     associate_public_ip_address = true
     key_name                    = "acme"
     count                       = "${var.servers}"
-    user_data                   = "${file("../scripts/${var.bootstrap_script}")}"
+    user_data                   = "${var.bootstrap_script}"
     security_groups             = ["${var.security_group}"]
 }
 

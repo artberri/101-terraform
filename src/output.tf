@@ -5,7 +5,3 @@ output "acme_dns" {
 output "acme_ips" {
     value = "${module.acme_instances.ips}"
 }
-
-output "acme_db_address" {
-    value = "${aws_db_instance.acme.address}"
-}

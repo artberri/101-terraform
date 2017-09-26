@@ -53,23 +53,35 @@ resource "aws_security_group" "acme_instances" {
   }
 }
 
-module "acme_instances" {
-  source           = "./modules/aws/instance"
-  servers          = 1
-  elb_id           = "${aws_elb.acme.id}"
-  ami              = "${var.acme_instance_ami}"
-  type             = "${var.acme_instance_type}"
-  bootstrap_script = "sample.sh"
-  security_group   = "${aws_security_group.acme_instances.name}"
-}
-
 resource "aws_db_instance" "acme" {
   allocated_storage    = 5
   storage_type         = "standard"
   engine               = "mysql"
   engine_version       = "5.7.17"
   instance_class       = "${var.acme_db_type}"
-  name                 = "acme"
-  username             = "acme"
-  password             = "12345678"
+  name                 = "${var.acme_db_name}"
+  username             = "${var.acme_db_user}"
+  password             = "${var.acme_db_pass}"
+  skip_final_snapshot  = true
+}
+
+data "template_file" "mycnf" {
+  template = "${file("../templates/sample.sh.tpl")}"
+
+  vars {
+    host     = "${aws_db_instance.acme.address}"
+    database = "${var.acme_db_name}"
+    user     = "${var.acme_db_user}"
+    password = "${var.acme_db_pass}"
+  }
+}
+
+module "acme_instances" {
+  source           = "./modules/aws/instance"
+  servers          = 1
+  elb_id           = "${aws_elb.acme.id}"
+  ami              = "${var.acme_instance_ami}"
+  type             = "${var.acme_instance_type}"
+  bootstrap_script = "${data.template_file.mycnf.rendered}"
+  security_group   = "${aws_security_group.acme_instances.name}"
 }

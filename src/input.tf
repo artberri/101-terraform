@@ -14,3 +14,7 @@ variable "acme_instance_ami" {
 variable "acme_db_type" {
     default = "db.t2.micro"
 }
+
+variable "acme_db_name" {}
+variable "acme_db_user" {}
+variable "acme_db_pass" {}
