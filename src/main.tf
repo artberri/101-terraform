@@ -7,6 +7,15 @@ resource "aws_key_pair" "acme" {
 module "main_project" {
     source           = "./modules/aws/project"
     subdomain        = "acme"
+    servers          = 2
+    instance_ami     = "${var.acme_instance_ami}"
+    instance_type    = "${var.acme_instance_type}"
+    bootstrap_script = "sample.sh"
+}
+
+module "secondary_project" {
+    source           = "./modules/aws/project"
+    subdomain        = "secondary"
     servers          = 1
     instance_ami     = "${var.acme_instance_ami}"
     instance_type    = "${var.acme_instance_type}"
