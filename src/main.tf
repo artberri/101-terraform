@@ -85,3 +85,30 @@ module "acme_instances" {
   bootstrap_script = "${data.template_file.mycnf.rendered}"
   security_group   = "${aws_security_group.acme_instances.name}"
 }
+
+resource "godaddy_domain_record" "acme" {
+  domain   = "phpun.org"
+
+  record {
+    name = "@"
+    type = "A"
+    data = "50.63.202.50"
+    ttl = 600
+  }
+
+  record {
+    name = "www"
+    type = "CNAME"
+    data = "@"
+    ttl = 3600
+  }
+
+  record {
+    name = "acme"
+    type = "CNAME"
+    data = "${aws_elb.acme.dns_name}"
+    ttl = 300
+  }
+
+  nameservers = ["ns11.domaincontrol.com", "ns12.domaincontrol.com"]
+}

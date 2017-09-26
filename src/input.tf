@@ -18,3 +18,6 @@ variable "acme_db_type" {
 variable "acme_db_name" {}
 variable "acme_db_user" {}
 variable "acme_db_pass" {}
+
+variable "godaddy_key" {}
+variable "godaddy_secret" {}
