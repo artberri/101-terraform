@@ -15,7 +15,7 @@ resource "aws_elb" "acme" {
   availability_zones = ["eu-west-2a", "eu-west-2b"]
 
   listener {
-    instance_port     = 8000
+    instance_port     = 5000
     instance_protocol = "http"
     lb_port           = 80
     lb_protocol       = "http"
@@ -25,17 +25,42 @@ resource "aws_elb" "acme" {
     healthy_threshold   = 2
     unhealthy_threshold = 2
     timeout             = 3
-    target              = "HTTP:8000/"
+    target              = "HTTP:5000/"
     interval            = 30
+  }
+
+  provisioner "local-exec" {
+    command = "echo ${self.dns_name} > ~/adme_address.txt"
+  }
+}
+
+resource "aws_security_group" "acme_instances" {
+  name        = "acme_instances"
+  description = "Allow load balancer traffic and outbound"
+
+  ingress {
+    from_port       = 5000
+    to_port         = 5000
+    protocol        = "tcp"
+    security_groups = ["${aws_elb.acme.source_security_group_id}"]
+  }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
   }
 }
 
 module "acme_instances" {
-  source  = "./modules/aws/instance"
-  servers = 2
-  elb_id  = "${aws_elb.acme.id}"
-  ami     = "${var.acme_instance_ami}"
-  type    = "${var.acme_instance_type}"
+  source           = "./modules/aws/instance"
+  servers          = 1
+  elb_id           = "${aws_elb.acme.id}"
+  ami              = "${var.acme_instance_ami}"
+  type             = "${var.acme_instance_type}"
+  bootstrap_script = "sample.sh"
+  security_group   = "${aws_security_group.acme_instances.name}"
 }
 
 resource "aws_db_instance" "acme" {

@@ -3,8 +3,9 @@ resource "aws_instance" "main" {
     instance_type               = "${var.type}"
     associate_public_ip_address = true
     key_name                    = "acme"
-    # This will create 4 instances
-    count = "${var.servers}"
+    count                       = "${var.servers}"
+    user_data                   = "${file("../scripts/${var.bootstrap_script}")}"
+    security_groups             = ["${var.security_group}"]
 }
 
 resource "aws_elb_attachment" "main" {
