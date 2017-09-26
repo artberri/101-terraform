@@ -1,7 +1,7 @@
 output "acme_dns" {
-    value = "${aws_elb.acme.dns_name}"
+    value = "${module.main_project.dns}"
 }
 
 output "acme_ips" {
-    value = "${module.acme_instances.ips}"
+    value = "${module.main_project.ips}"
 }

@@ -12,12 +12,3 @@ git clone https://github.com/heroku/node-js-sample.git
 cd node-js-sample
 npm install
 pm2 start index.js
-
-cat > /root/.my.cnf <<EOL
-[client]
-host="${host}"
-user="${user}"
-password="${password}"
-database="${database}"
-EOL
-chmod 600 /root/.my.cnf
