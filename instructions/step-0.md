@@ -115,4 +115,4 @@ This way, we will ensure that it will be executed only what we already planned a
 
 ---
 
-Continue the workshop in the `azure-step-1` branch.
+Continue the workshop in [the `azure-step-1` branch](https://github.com/artberri/101-terraform/blob/azure-step-1/instructions/step-1.md).
