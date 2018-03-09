@@ -1,4 +1,4 @@
-# Basics
+# Step 0 - Basics
 
 Go to:
 
