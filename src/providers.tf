@@ -5,3 +5,7 @@ provider "azurerm" {
     tenant_id       = "${var.arm_tenant_id}"
     version         = "~> 1.2"
 }
+
+provider "random" {
+    version         = "~> 1.1"
+}

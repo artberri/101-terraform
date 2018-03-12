@@ -1,4 +1,4 @@
-# Step 4 - Modules.md
+# Step 4 - Modules
 
 If you were not able to follow the workshop until here, you can continue from this step by executing:
 
