@@ -31,7 +31,7 @@ variable "azurerm_tenant_id" {
 
 variable "azurerm_region" {
     description = "The Azure region to create things in."
-    default = "UK West"
+    default = "West Europe"
 }
 ```
 

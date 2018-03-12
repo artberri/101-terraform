@@ -57,7 +57,7 @@ Add the following to the `example.tf` file:
 ```tf
 resource "azurerm_resource_group" "terraform_sample" {
     name     = "terraform-sample"
-    location = "UK West"
+    location = "West Europe"
 }
 ```
 
@@ -95,7 +95,7 @@ Add the resource group again to the `example.tf` file:
 ```tf
 resource "azurerm_resource_group" "terraform_sample" {
     name     = "terraform-sample"
-    location = "UK West"
+    location = "West Europe"
 }
 ```
 
