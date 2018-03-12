@@ -10,7 +10,7 @@ git checkout azure-step-1
 
 **1\. My credentials are shown!!**
 
-Create a variables.tf file with the following:
+Create a `variables.tf` file with the following:
 
 ```tf
 variable "azurerm_subscription_id" {

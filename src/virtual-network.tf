@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "terraform_sample" {
     name     = "terraform-sample"
-    location = "${var.azurerm_region}"
+    location = "${var.arm_region}"
 }
 
 resource "azurerm_virtual_network" "my_vn" {
