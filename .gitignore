@@ -1,6 +1,6 @@
 # Terraform files
 .terraform
 terraform.tfstate
-terraform.tfvars
+src/**/terraform.tfvars
 *.tfstate*
 *.plan
