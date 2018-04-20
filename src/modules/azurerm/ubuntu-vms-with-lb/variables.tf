@@ -13,5 +13,3 @@ variable "instance_size" {}
 variable "instance_user" {}
 
 variable "instance_password" {}
-
-variable "custom_data_file" {}

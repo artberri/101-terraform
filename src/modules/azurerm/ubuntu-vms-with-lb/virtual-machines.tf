@@ -65,7 +65,6 @@ resource "azurerm_virtual_machine" "frontend" {
         computer_name  = "${var.prefix}-f-instance-${count.index}"
         admin_username = "${var.instance_user}"
         admin_password = "${var.instance_password}"
-        custom_data    = "${file("${path.module}/templates/${var.custom_data_file}")}"
     }
 
     os_profile_linux_config {
