@@ -6,7 +6,7 @@
 //     subnet_id         = "${azurerm_subnet.my_subnet_frontend.id}"
 //     instance_count    = 0
 //     instance_size     = "Standard_A0"
-//     instance_user     = "${var.arm_frontend_instances}"
+//     instance_user     = "${var.arm_vm_admin_user}"
 //     instance_password = "${var.arm_vm_admin_password}"
 //     custom_data_file  = "myapp.sh"
 // }
@@ -19,7 +19,7 @@
 //     subnet_id         = "${azurerm_subnet.my_subnet_frontend.id}"
 //     instance_count    = 0
 //     instance_size     = "Standard_A2"
-//     instance_user     = "${var.arm_frontend_instances}"
+//     instance_user     = "${var.arm_vm_admin_user}"
 //     instance_password = "${var.arm_vm_admin_password}"
 //     custom_data_file  = "myapp.sh"
 // }
