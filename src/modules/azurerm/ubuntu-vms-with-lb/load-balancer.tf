@@ -35,29 +35,7 @@ resource "azurerm_lb_rule" "port80" {
 
     protocol                       = "Tcp"
     frontend_port                  = 80
-    backend_port                   = 80
-    frontend_ip_configuration_name = "default"
-}
-
-resource "azurerm_lb_probe" "port443" {
-    name                = "${var.prefix}-f-lb-probe-443-up"
-    loadbalancer_id     = "${azurerm_lb.frontend.id}"
-    resource_group_name = "${var.resource_group}"
-    protocol            = "Http"
-    request_path        = "/"
-    port                = 443
-}
-
-resource "azurerm_lb_rule" "port443" {
-    name                    = "${var.prefix}-f-lb-rule-443-443"
-    resource_group_name     = "${var.resource_group}"
-    loadbalancer_id         = "${azurerm_lb.frontend.id}"
-    backend_address_pool_id = "${azurerm_lb_backend_address_pool.frontend.id}"
-    probe_id                = "${azurerm_lb_probe.port443.id}"
-
-    protocol                       = "Tcp"
-    frontend_port                  = 443
-    backend_port                   = 443
+    backend_port                   = 5000
     frontend_ip_configuration_name = "default"
 }
 
