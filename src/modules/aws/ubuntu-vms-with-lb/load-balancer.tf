@@ -1,5 +1,5 @@
 resource "aws_elb" "acme" {
-    name               = "acme-elb"
+    name               = "${var.prefix}-acme-elb"
     availability_zones = ["eu-west-2a", "eu-west-2b"]
 
     listener {

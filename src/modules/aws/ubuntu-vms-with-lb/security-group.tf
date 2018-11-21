@@ -1,5 +1,5 @@
 resource "aws_security_group" "acme_instances" {
-    name        = "acme_instances"
+    name        = "${var.prefix}-acme_instances"
     description = "Allow load balancer traffic and outbound"
 
     ingress {

@@ -1,12 +1,12 @@
 resource "aws_instance" "frontend" {
     count                       = "${var.instance_count}"
     ami                         = "ami-e1f2e185" // Ubuntu 16.04 LTS hvm:ebs-ssd
-    instance_type               = "t2.micro"
+    instance_type               = "${var.instance_size}"
     associate_public_ip_address = true
-    key_name                    = "acme"
+    key_name                    = "${var.key_name}"
 
     tags {
-        Name = "acme-${count.index}"
+        Name = "${var.prefix}-acme-${count.index}"
     }
 }
 
