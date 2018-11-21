@@ -4,6 +4,8 @@ resource "aws_instance" "frontend" {
     instance_type               = "${var.instance_size}"
     associate_public_ip_address = true
     key_name                    = "${var.key_name}"
+    security_groups             = ["${aws_security_group.acme_instances.name}"]
+    user_data                   = "${file("${path.module}/templates/${var.user_data_file}")}"
 
     tags {
         Name = "${var.prefix}-acme-${count.index}"

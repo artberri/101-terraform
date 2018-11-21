@@ -4,6 +4,7 @@ module "project1_instances" {
     instance_count    = 2
     instance_size     = "t2.micro"
     key_name          = "${aws_key_pair.acme.key_name}"
+    user_data_file    = "myapp.sh"
 }
 
 module "project2_instances" {
@@ -12,4 +13,5 @@ module "project2_instances" {
     instance_count    = 1
     instance_size     = "t2.micro"
     key_name          = "${aws_key_pair.acme.key_name}"
+    user_data_file    = "myapp.sh"
 }
